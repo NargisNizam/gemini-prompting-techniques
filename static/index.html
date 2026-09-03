@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Study Coach — Gemini Prompting Techniques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="masthead">
+      <div class="masthead__mark">AI Study Coach</div>
+      <p class="masthead__tag">Turn a hard exam date into a plan you can actually follow — built to compare how Gemini responds to three different prompting styles.</p>
+    </header>
+
+    <main class="layout">
+
+      <!-- LEFT: input panel -->
+      <section class="panel panel--form" aria-label="Student details">
+        <h2 class="panel__title">Tell us where things stand</h2>
+
+        <form id="coach-form">
+          <div class="field">
+            <label for="name">Student name</label>
+            <input id="name" name="name" type="text" placeholder="Ahmed" required>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="Python Programming" required>
+          </div>
+
+          <div class="field">
+            <label for="weak_topics">Weak topics</label>
+            <textarea id="weak_topics" name="weak_topics" rows="2" placeholder="Loops, functions, debugging" required></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="days_remaining">Days until exam</label>
+              <input id="days_remaining" name="days_remaining" type="number" min="1" max="60" value="5" required>
+            </div>
+            <div class="field">
+              <label for="hours_per_day">Hours / day</label>
+              <input id="hours_per_day" name="hours_per_day" type="number" min="0.5" max="24" step="0.5" value="2" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="skill_level">Current skill level</label>
+            <select id="skill_level" name="skill_level" required>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+
+          <fieldset class="field technique-picker">
+            <legend>Prompting technique</legend>
+
+            <label class="technique-option">
+              <input type="radio" name="technique" value="zero_shot" checked>
+              <span class="technique-option__body">
+                <span class="technique-option__name">Zero-shot</span>
+                <span class="technique-option__desc">No examples — Gemini works from the instructions alone.</span>
+              </span>
+            </label>
+
+            <label class="technique-option">
+              <input type="radio" name="technique" value="few_shot">
+              <span class="technique-option__body">
+                <span class="technique-option__name">Few-shot</span>
+                <span class="technique-option__desc">Gemini sees two worked examples first, then follows the pattern.</span>
+              </span>
+            </label>
+
+            <label class="technique-option">
+              <input type="radio" name="technique" value="structured">
+              <span class="technique-option__body">
+                <span class="technique-option__name">Structured reasoning</span>
+                <span class="technique-option__desc">Gemini works through the situation step by step before recommending.</span>
+              </span>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="submit-btn" id="submit-btn">Generate study plan</button>
+        </form>
+      </section>
+
+      <!-- RIGHT: output panel -->
+      <section class="panel panel--output" aria-label="Generated plan">
+        <div id="output-empty" class="output-empty">
+          <p>Your plan will appear here.</p>
+          <p class="output-empty__sub">Fill in the form and pick a technique to see how Gemini responds.</p>
+        </div>
+
+        <div id="output-result" class="output-result" hidden>
+          <div class="output-result__meta">
+            <span id="technique-badge" class="technique-badge"></span>
+            <button id="toggle-prompt" class="link-btn" type="button">View prompt sent</button>
+          </div>
+
+          <pre id="prompt-box" class="prompt-box" hidden></pre>
+
+          <div id="plan-text" class="plan-text"></div>
+        </div>
+
+        <div id="output-error" class="output-error" hidden></div>
+      </section>
+
+    </main>
+
+    <footer class="footnote">
+      Built with FastAPI + the Gemini API — assignment: comparing zero-shot, few-shot, and structured-reasoning prompting.
+    </footer>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
